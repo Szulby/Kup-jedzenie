@@ -1,9 +1,6 @@
-from email.header import Header
-from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import smtplib
-import json
 
 
 def smtp_gmail(email, title, content):
@@ -23,7 +20,6 @@ def smtp_gmail(email, title, content):
             price=item['price'].replace('.', ',').strip(),
             count=item['count'],
             price_total="{:.2f}".format(item['price_total']).replace('.', ',')
-            # str(item['price_total']).replace('.', ',')
         )
         total += float(item['price_total'])
     body = """

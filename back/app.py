@@ -14,15 +14,14 @@ from datetime import datetime
 from datetime import timedelta
 from datetime import timezone
 from flask_cors import CORS  # comment this on deployment
-
+import os
 app = Flask(__name__)
 
 app.config['HOST'] = '0.0.0.0'
-
-app.config['MYSQL_HOST'] = 'mysql'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'secret'
-app.config['MYSQL_DB'] = 'shop'
+app.config['MYSQL_HOST'] = os.environ.get('MYSQL_HOST')
+app.config['MYSQL_USER'] = os.environ.get('MYSQL_USER')
+app.config['MYSQL_PASSWORD'] = os.environ.get('MYSQL_PASSWORD')
+app.config['MYSQL_DB'] = os.environ.get('MYSQL_DB')
 
 app.config['DEBUG'] = True
 app.config["JWT_COOKIE_SECURE"] = False
@@ -49,7 +48,7 @@ def get_json_output(query):
 def index():
     try:
         mysql.connection.cursor()
-        return "połączono do bazy"
+        return "mysql connected"
     except Exception as e:
         return str(e)
 
@@ -156,6 +155,7 @@ def make_order():
     cur.connection.commit()
 
     # insert order_target
+
     form = json.loads(request.data)['data']['form']
     query = \
         "insert into order_target (order_id, `email`,`name`,`surname`,`street`,`city`,`zipcode`,`phone`, `info`, `delivery`,`status`,`create_at`,`update_at`) \

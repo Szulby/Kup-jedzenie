@@ -31,6 +31,11 @@ services:
       - ./back:/src
     networks:
       - net
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=secret
+      - MYSQL_DB=shop
   front:
     build: ./front
     container_name: frontend
