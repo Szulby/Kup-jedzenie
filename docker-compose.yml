@@ -41,6 +41,7 @@ services:
     container_name: frontend
     volumes:
       - ./front:/src
+      - node_modules:/src/node_modules
     ports:
       - 3000:3000
     tty: true
@@ -48,5 +49,6 @@ services:
       - CHOKIDAR_USEPOLLING=true
 volumes:
   db:
+  node_modules:
 networks:
   net:

@@ -4,8 +4,10 @@ FROM node:14.17.1
 
 WORKDIR /src
 
-COPY . .
+COPY package.json .
 
 RUN npm install
+
+COPY . .
 
 CMD [ "npm", "start" ]
